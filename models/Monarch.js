@@ -32,6 +32,4 @@ const monarchSchema = new mongoose.Schema({
 
 })
 
-const Monarch = Mongoose.model('Monarch', monarchSchema)
-
-module.exports = Monarch
+export default mongoose.model('Monarch', monarchSchema)
