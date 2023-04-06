@@ -1,35 +1,31 @@
-const mongoose = require('mongoose')
-const monarchSchema = new mongoose.Schema({
+// /Users/lissawarshaw/Desktop/repos/ga-sei/labs/monarch-lab/models/Monarch.js
 
-  name: {
-    type: String,
-    required: true
-  },
-  house: {
-    type: String,
-    require: true
-  },
 
-  start: {
-    type: Number,
-    require: true
-  },
+const mongoose = require("../db/connection");
 
-  end: {
-    type: Number,
-    require: true
-  },
+const MonarchSchema = new mongoose.Schema({
+  name: String,
+  house: String,
+  start: Date,
+  end: Date,
+  endReason: String,
+  kingdom: { type: mongoose.Schema.Types.ObjectId, ref: 'Kingdom' }
+});
 
-  endReason: {
-    type: String,
-    require: true
-  },
+const Monarch = mongoose.model('Monarch', MonarchSchema);
 
-  Kingdom: {
-    type: String,
-    require: true
-  }
+module.exports = Monarch;
+// import mongoose from "../db/connection.js";
 
-})
+// const MonarchSchema = new mongoose.Schema({
+//   name: String,
+//   house: String,
+//   start: Date,
+//   end: Date,
+//   endReason: String,
+//   kingdom: { type: mongoose.Schema.Types.ObjectId, ref: 'Kingdom' }
+// });
 
-export default mongoose.model('Monarch', monarchSchema)
+// const Monarch = mongoose.model('Monarch', MonarchSchema);
+
+// export default Monarch;
