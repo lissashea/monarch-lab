@@ -1,5 +1,7 @@
-const { templateSettings } = require("lodash");
+const mongoose = require('mongoose')
+const kingdomSchema = new mongoose.Schema({
 
-templateSettings
 
-console.log("personal")
+
+
+})
