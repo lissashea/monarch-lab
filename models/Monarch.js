@@ -1,18 +1,32 @@
 // /Users/lissawarshaw/Desktop/repos/ga-sei/labs/monarch-lab/models/Monarch.js
 
 
+
+// const MonarchSchema = new mongoose.Schema({
+//   name: String,
+//   house: String,
+//   start: Date,
+//   end: Date,
+//   endReason: String,
+//   kingdom: { 
+//     type: mongoose.Schema.Types.ObjectId, 
+//     ref: 'Kingdom' 
+//   }
+// });
 const mongoose = require("../db/connection");
 
-const MonarchSchema = new mongoose.Schema({
+const monarchSchema = new mongoose.Schema({
   name: String,
-  house: String,
-  start: Date,
-  end: Date,
-  endReason: String,
-  kingdom: { type: mongoose.Schema.Types.ObjectId, ref: 'Kingdom' }
+  dynasty: String,
+  reignStart: Number,
+  reignEnd: Number,
+  kingdom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Kingdom'
+  }
 });
 
-const Monarch = mongoose.model('Monarch', MonarchSchema);
+const Monarch = mongoose.model('Monarch', monarchSchema);
 
 module.exports = Monarch;
 // import mongoose from "../db/connection.js";
