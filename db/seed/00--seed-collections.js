@@ -40,13 +40,28 @@ mongoose.connection.once("open", () => {
     .then(() => mongoose.disconnect())
     .catch((error) => console.log("Error seeding collections:", error));
 });
+// Import required modules and data files:
 
+// mongoose module from "../db/connection.js"
+// monarchData and kingdomData JSON files from "../db/data/monarchRaw.json" and "../db/data/kingdomRaw.json" respectively
+// Monarch and Kingdom models from "../models/Monarch.js" and "../models/Kingdom.js" respectively
+// Define two functions to seed the Monarch and Kingdom collections:
 
-import mongoose from "../db/connection.js";
-import monarchData from "../db/data/monarchRaw.json";
-import kingdomData from "../db/data/kingdomRaw.json";
-import Monarch from "../models/Monarch.js";
-import Kingdom from "../models/Kingdom.js";
+// seedMonarchs function maps over monarchData to create an array of monarch objects with the desired schema properties, then deletes all Monarch documents from the database, creates a new collection of Monarchs using the array of monarchs, and logs a success message upon completion (or logs an error message upon error).
+// seedKingdoms function maps over kingdomData to create an array of kingdom objects with the desired schema properties, then deletes all Kingdom documents from the database, creates a new collection of Kingdoms using the array of kingdoms, and logs a success message upon completion (or logs an error message upon error).
+// Once the database connection is open, execute the following:
+
+// Log a message indicating that the connection is open.
+// Use Promise.all to execute both seedMonarchs and seedKingdoms functions simultaneously, and wait for them to complete.
+// Disconnect from the database.
+// If there is an error with the Promise, log an error message.
+// Export the Monarch and Kingdom models.
+
+// import mongoose from "../db/connection.js";
+// import monarchData from "../db/data/monarchRaw.json";
+// import kingdomData from "../db/data/kingdomRaw.json";
+// import Monarch from "../models/Monarch.js";
+// import Kingdom from "../models/Kingdom.js";
 
 // const seedMonarchs = async () => {
 //   const monarchs = monarchData.map((monarch) => ({
