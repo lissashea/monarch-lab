@@ -1,34 +1,26 @@
 // /Users/lissawarshaw/Desktop/repos/ga-sei/labs/monarch-lab/db/seed/01--seed-nested-models.js
 
-const mongoose = require("../db/connection");
-const monarchData = require("../db/data/monarchRaw.json");
-const Monarch = require("../models/Monarch");
-const Kingdom = require("../models/Kingdom");
+const mongoose = require('../connection.js');
+const Monarch = require('../../models/Monarch.js');
+const Kingdom = require('../../models/Kingdom.js');
 
-mongoose.connection.once("open", () => {
-  console.log("Connected to MongoDB!");
+let updateData = async () => {
+  let kingdoms = await Kingdom.find({});
 
-  // Find all Monarchs in the database
-  Monarch.find({})
-    .then((monarchs) => {
-      // For each Monarch, find the corresponding Kingdom and set the 'kingdom' field
-      monarchs.forEach((monarch) => {
-        const kingdomName = monarchData.find((m) => m.name === monarch.name)?.kingdom;
-        if (kingdomName) {
-          Kingdom.findOne({ title: kingdomName })
-            .then((kingdom) => {
-              monarch.kingdom = kingdom._id;
-              monarch.save()
-                .then(() => console.log(`Added kingdom ${kingdom.title} to monarch ${monarch.name}`))
-                .catch((error) => console.log(`Error updating monarch ${monarch.name}:`, error));
-            })
-            .catch((error) => console.log(`Error finding kingdom ${kingdomName}:`, error));
-        }
-      });
-    })
-    .catch((error) => console.log("Error finding Monarchs:", error))
-    .finally(() => mongoose.disconnect());
-});
+  kingdoms.forEach(async (element) => {
+    const kingdom = await Kingdom.findOne({ title: element.title });
+    await Monarch.updateMany(
+      { kingdom: element._id },
+      { $set: { kingdom: kingdom._id } }
+    );
+  });
+
+  let check = await Monarch.find({});
+  console.log(check);
+};
+
+updateData().then(() => mongoose.disconnect())
+
 
 
 // import mongoose from "../db/connection.js";
